@@ -13,25 +13,25 @@ variable "tags" {
 variable "rds_schedule_expression_stop" {
   description = "Define the AWS Systems Manager schedule expression to stop RDS"
   type        = string
-  default     = "cron(0 20 ? * * *)"
+  default     = ""
 }
 
 
 variable "rds_schedule_expression_start" {
   description = "Define the AWS Systems Manager schedule expression to stop RDS"
   type        = string
-  default     = "cron(0 07 ? * * *)"
+  default     = ""
 }
 
 variable "rds_target_tag_key" {
-  description = "Targets specify what tags, tag all the instances you want State Manager to impact with appropriate tags to start and stop RDS"
+  description = "Targets specify what tags to use, tag all the instances you want State Manager to start and stop RDS"
   type        = string
-  default     = "cloud-platform-rds-auto-shutdown"
+  default     = ""
 }
 
 
 variable "rds_target_tag_value" {
-  description = "Targets specify what tags, tag all the instances you want State Manager to impact with appropriate tags to start and stop RDS"
+  description = "Targets specify what tags to use, tag all the instances you want State Manager to start and stop RDS"
   type        = string
-  default     = "Schedule RDS Stop/Start during non-business hours for cost saving"
+  default     = ""
 }
