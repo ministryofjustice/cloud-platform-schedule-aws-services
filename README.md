@@ -23,12 +23,13 @@ module "aws_scheduler" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >=3.0.0 |
 
 ## Modules
 
@@ -38,32 +39,30 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_iam_role.scheduler_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.scheduler_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_ssm_association.rds-auto_start](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_association) | resource |
+| [aws_ssm_association.rds-auto_stop](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_association) | resource |
+| [aws_iam_policy_document.assume_scheduler_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.scheduler_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_ssm_document.start_rds_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_document) | data source |
+| [aws_ssm_document.stop_rds_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_document) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_rds_schedule_expression_start"></a> [rds\_schedule\_expression\_start](#input\_rds\_schedule\_expression\_start) | Define the AWS Systems Manager schedule expression to stop RDS | `string` | `""` | no |
+| <a name="input_rds_schedule_expression_stop"></a> [rds\_schedule\_expression\_stop](#input\_rds\_schedule\_expression\_stop) | Define the AWS Systems Manager schedule expression to stop RDS | `string` | `""` | no |
+| <a name="input_rds_target_tag_key"></a> [rds\_target\_tag\_key](#input\_rds\_target\_tag\_key) | Targets specify what tags to use, tag all the instances you want State Manager to start and stop RDS | `string` | `""` | no |
+| <a name="input_rds_target_tag_value"></a> [rds\_target\_tag\_value](#input\_rds\_target\_tag\_value) | Targets specify what tags to use, tag all the instances you want State Manager to start and stop RDS | `string` | `""` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Custom tags on aws resources | `map(any)` | <pre>{<br>  "business-unit": "HQ",<br>  "infrastructure-support": "platforms@digtal.justice.gov.uk",<br>  "is-production": "true",<br>  "team_name": "cloud-platform"<br>}</pre> | no |
 
 ## Outputs
 
 No outputs.
 
 <!--- END_TF_DOCS --->
-
-## Tags
-
-Some of the inputs are tags. All infrastructure resources need to be tagged according to the [MOJ techincal guidance](https://ministryofjustice.github.io/technical-guidance/standards/documenting-infrastructure-owners/#documenting-owners-of-infrastructure). The tags are stored as variables that you will need to fill out as part of your module.
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| application |  | string | - | yes |
-| business-unit | Area of the MOJ responsible for the service | string | `mojdigital` | yes |
-| environment-name |  | string | - | yes |
-| infrastructure-support | The team responsible for managing the infrastructure. Should be of the form team-email | string | - | yes |
-| is-production |  | string | `false` | yes |
-| team_name |  | string | - | yes |
-| sqs_name |  | string | - | yes |
 
 ## Reading Material
 
