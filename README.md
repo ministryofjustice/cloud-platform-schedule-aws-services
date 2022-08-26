@@ -1,17 +1,21 @@
-# cloud-platform-terraform-_template_
+# cloud-platform-terraform-aws-scheduler
 
-_note: Please remove all comments in italics and fill where required>_
+[![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-terraform-aws-scheduler/all.svg?style=flat-square)](https://github.com/ministryofjustice/cloud-platform-terraform-aws-scheduler/releases)
 
-_Please change the urls in the release badge below_
-[![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-terraform-template/all.svg?style=flat-square)](https://github.com/ministryofjustice/cloud-platform-terraform-template/releases)
-
-_Short describion of the module_
-_This Terraform module ......_
+Schedule Amazon RDS stop and start using AWS Systems Manager
 
 ## Usage
 
-_Describe how to use the module_
-See the [examples/](examples/) folder.
+```
+module "aws_scheduler" {
+  source = "github.com/ministryofjustice/cloud-platform-terraform-aws-scheduler?ref=1.0"
+
+  rds_schedule_expression_stop   = "cron(0 22 ? * * *)"
+  rds_schedule_expression_start  = "cron(0 06 ? * * *)"
+  rds_target_tag_key             = "cloud-platform-rds-auto-shutdown"
+  rds_target_tag_value           = "Schedule RDS Stop/Start during non-business hours for cost saving"
+}
+```
 
 <!--- BEGIN_TF_DOCS --->
 ## Requirements
@@ -63,4 +67,4 @@ Some of the inputs are tags. All infrastructure resources need to be tagged acco
 
 ## Reading Material
 
-_add link to external source_
+https://aws.amazon.com/blogs/database/schedule-amazon-rds-stop-and-start-using-aws-systems-manager/
